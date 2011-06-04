@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	android:versionCode="1" android:versionName="1.0" package="us.donmai.danbooru.danbo">
+	<application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+		<activity android:label="@string/app_name"
+			android:screenOrientation="portrait" android:name=".activity.HomeActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<meta-data android:name="android.app.default_searchable"
+                   android:value=".activity.TagSearchActivity" />
+		</activity>
+
+		<activity android:screenOrientation="portrait" android:name=".activity.PostListActivity"></activity>
+		<activity android:screenOrientation="portrait" android:name=".activity.PreferencesActivity"></activity>
+		<activity android:screenOrientation="portrait" android:name=".activity.SinglePostActivity"></activity>
+		<activity android:screenOrientation="portrait" android:name=".activity.TagListActivity"></activity>
+		<activity android:screenOrientation="portrait" android:name=".activity.TagSearchActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.SEARCH" />
+			</intent-filter>
+			<meta-data android:name="android.app.searchable"
+				android:resource="@xml/searchable" />
+		</activity>
+
+		<meta-data android:name="android.app.default_searchable"
+			android:value="TagSearchActivity" />
+
+	</application>
+	<uses-sdk android:minSdkVersion="3"/>
+
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.SET_WALLPAPER"></uses-permission>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+</manifest> 

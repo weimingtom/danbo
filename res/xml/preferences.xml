@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  android:key="preferences" android:title="Preferences" xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<EditTextPreference android:defaultValue="danbooru.donmai.us" android:title="Host" android:key="host"></EditTextPreference>
+
+
+<ListPreference android:title="Rating" android:key="rating" android:entries="@array/rating" android:entryValues="@array/rating" android:defaultValue="@array/rating"></ListPreference>
+<EditTextPreference android:key="posts_per_page" android:title="Number of posts per page" android:numeric="integer"></EditTextPreference>
+</PreferenceScreen>

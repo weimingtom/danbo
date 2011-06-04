@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="rating"><item>Safe</item>
+<item>Questionnable</item>
+<item>Explicit</item>
+</string-array>
+</resources>
