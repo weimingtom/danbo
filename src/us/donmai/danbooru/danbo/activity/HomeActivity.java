@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * The activity launched when the application starts up
@@ -55,25 +57,29 @@ public class HomeActivity extends Activity {
 
 			setContentView(R.layout.home);
 
-			// setting up listeners
-			Button listPostsButton = (Button) findViewById(R.id.ListPostsButton);
-			listPostsButton.setOnClickListener(new OnClickListener() {
+			String[] menuItems = { "Posts", "Tags" };
+			ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
+			menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
+					R.layout.menu_items, menuItems));
+			menuItemsListView.setOnItemClickListener(new OnItemClickListener() {
 
-				public void onClick(View v) {
-					Intent i = new Intent(HomeActivity.this,
-							PostListActivity.class);
-					startActivity(i);
+				public void onItemClick(AdapterView<?> arg0, View v,
+						int position, long id) {
+					switch (position) {
+					case 0:
+						Intent postsIntent = new Intent(HomeActivity.this,
+								PostListActivity.class);
+						HomeActivity.this.startActivity(postsIntent);
+						break;
+					case 1:
+						Intent tagsIntent = new Intent(HomeActivity.this,
+								TagListActivity.class);
+						HomeActivity.this.startActivity(tagsIntent);
+						break;
+					default:
+						break;
+					}
 
-				}
-			});
-
-			Button tagsButton = (Button) findViewById(R.id.TagsButton);
-			tagsButton.setOnClickListener(new OnClickListener() {
-
-				public void onClick(View v) {
-					Intent i = new Intent(HomeActivity.this,
-							TagListActivity.class);
-					startActivity(i);
 				}
 			});
 		}
