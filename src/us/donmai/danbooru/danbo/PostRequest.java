@@ -36,7 +36,7 @@ public class PostRequest {
 				"rating", "safe");
 		this._resource = "/post/index.json";
 		String tmpLimit = SharedPreferencesInstance.getInstance().getString(
-				"posts_per_page", "20");
+				"posts_per_page", "10");
 		this._limit = Integer.parseInt(tmpLimit);
 		this._tags = new ArrayList<Tag>();
 		this._page = 1;
