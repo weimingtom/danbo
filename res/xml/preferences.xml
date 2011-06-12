@@ -3,9 +3,7 @@
   android:key="preferences" android:title="Preferences" xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<EditTextPreference android:defaultValue="danbooru.donmai.us" android:title="Host" android:key="host"></EditTextPreference>
+<ListPreference android:title="Host" android:key="host" android:entryValues="@array/host" android:entries="@array/host"></ListPreference><ListPreference android:title="Posts per page" android:key="posts_per_page" android:entryValues="@array/posts_per_page" android:entries="@array/posts_per_page"></ListPreference><ListPreference android:title="Rating" android:key="rating" android:entries="@array/rating" android:entryValues="@array/rating" android:defaultValue="@array/rating"></ListPreference>
 
 
-<ListPreference android:title="Rating" android:key="rating" android:entries="@array/rating" android:entryValues="@array/rating" android:defaultValue="@array/rating"></ListPreference>
-<EditTextPreference android:key="posts_per_page" android:title="Number of posts per page" android:numeric="integer"></EditTextPreference>
 </PreferenceScreen>
