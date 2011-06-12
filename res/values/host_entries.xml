@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="host">
-        <item>danbooru.donmai.us</item>
-        <item>konachan.com</item>
-        <item>idol.sankakucomplex.com</item>
-    </string-array>
-</resources>

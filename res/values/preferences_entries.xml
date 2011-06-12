@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="host">
+		<item>danbooru.donmai.us</item>
+		<item>konachan.com</item>
+		<item>idol.sankakucomplex.com</item>
+	</string-array>
+	<string-array name="rating">
+		<item>Safe</item>
+		<item>Questionnable</item>
+		<item>Explicit</item>
+	</string-array>
+	<string-array name="posts_per_page">
+		<item>10</item>
+		<item>20</item>
+		<item>30</item>
+	</string-array>
+</resources>

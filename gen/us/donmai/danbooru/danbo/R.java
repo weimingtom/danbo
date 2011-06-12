@@ -9,7 +9,9 @@ package us.donmai.danbooru.danbo;
 
 public final class R {
     public static final class array {
-        public static final int rating=0x7f050000;
+        public static final int host=0x7f050000;
+        public static final int posts_per_page=0x7f050002;
+        public static final int rating=0x7f050001;
     }
     public static final class attr {
     }

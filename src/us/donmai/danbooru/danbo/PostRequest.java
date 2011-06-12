@@ -37,7 +37,14 @@ public class PostRequest {
 		this._resource = "/post/index.json";
 		String tmpLimit = SharedPreferencesInstance.getInstance().getString(
 				"posts_per_page", "10");
-		this._limit = Integer.parseInt(tmpLimit);
+		try {
+			this._limit = Integer.parseInt(tmpLimit);
+		}
+		catch (NumberFormatException e) {
+			Log.e("danbo",tmpLimit + " is not a number.");
+			this._limit = 10;
+		}
+		
 		this._tags = new ArrayList<Tag>();
 		this._page = 1;
 	}
