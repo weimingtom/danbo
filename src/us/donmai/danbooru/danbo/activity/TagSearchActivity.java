@@ -39,11 +39,13 @@ public class TagSearchActivity extends Activity {
 		protected void onPreExecute() {
 			_progress = new ProgressDialog(TagSearchActivity.this);
 			_progress.setIndeterminate(true);
+			_progress.setMessage("Searching ...");
 			_progress.show();
 		}
 
 		@Override
 		protected List<Tag> doInBackground(String... params) {
+
 			ArrayList<Tag> tags = new ArrayList<Tag>();
 			try {
 				String host = SharedPreferencesInstance.getInstance()
