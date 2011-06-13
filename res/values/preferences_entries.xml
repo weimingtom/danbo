@@ -4,6 +4,7 @@
 		<item>danbooru.donmai.us</item>
 		<item>konachan.com</item>
 		<item>idol.sankakucomplex.com</item>
+		<item>chan.sankakucomplex.com</item>
 	</string-array>
 	<string-array name="rating">
 		<item>Safe</item>
