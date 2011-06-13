@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/previous_page" android:title="Previous Page" android:enabled="false"></item>
-    <item android:id="@+id/next_page" android:title="Next Page"></item>
+    <item android:id="@+id/next_page" android:title="Next Page" android:icon="@drawable/ic_menu_forward"></item>
 </menu>

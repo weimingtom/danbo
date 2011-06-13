@@ -124,13 +124,13 @@ public class PostListActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		case R.id.previous_page:
-			if (_currentPage > 1) {
-				_request.previousPage();
-				GetPostListTask t = new GetPostListTask();
-				t.execute(_request);
-			}
-			return true;
+//		case R.id.previous_page:
+//			if (_currentPage > 1) {
+//				_request.previousPage();
+//				GetPostListTask t = new GetPostListTask();
+//				t.execute(_request);
+//			}
+//			return true;
 		case R.id.next_page:
 			_request.nextPage();
 			GetPostListTask t = new GetPostListTask();
