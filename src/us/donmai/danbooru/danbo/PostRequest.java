@@ -33,7 +33,7 @@ public class PostRequest {
 		this._host = SharedPreferencesInstance.getInstance().getString("host",
 				"danbooru.donmai.us");
 		this._rating = SharedPreferencesInstance.getInstance().getString(
-				"rating", "safe");
+				"rating", "Safe");
 		this._resource = "/post/index.json";
 		String tmpLimit = SharedPreferencesInstance.getInstance().getString(
 				"posts_per_page", "10");
@@ -69,7 +69,10 @@ public class PostRequest {
 	 */
 	public List<Post> execute() {
 		String url = "http://" + _host + _resource + "?limit=" + _limit
-				+ "&page=" + this._page + "&tags=rating:" + _rating;
+				+ "&page=" + this._page + "&tags=";
+		if(!(_rating.equalsIgnoreCase("All"))) {
+			url += "rating:" + _rating;
+		}
 		for (Tag t : _tags) {
 			url = url + "%20" + t.getName();
 		}
