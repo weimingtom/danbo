@@ -51,13 +51,15 @@ public class PostGridAdapter extends BaseAdapter {
 		if (convertView == null) {
 			imageView = new ImageView(_context);
 			// Image display
-			imageView.setLayoutParams(new GridView.LayoutParams(150, 150));
+			// 
+			imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(8, 8, 8, 8);
+			imageView.setPadding(4, 4, 4, 4);
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		imageView.setOnClickListener(new ImageClicked(_posts.get(position).getPost()));
+		imageView.setOnClickListener(new ImageClicked(_posts.get(position)
+				.getPost()));
 		// Get the preview bitmap from the post object
 		// Bitmap bm = _posts.get(position).getPreviewImage();
 
