@@ -36,13 +36,13 @@ public class PostRequest {
 				"rating", "Safe");
 		this._resource = "/post/index.json";
 		String tmpLimit = SharedPreferencesInstance.getInstance().getString(
-				"posts_per_page", "10");
+				"posts_per_page", "12");
 		try {
 			this._limit = Integer.parseInt(tmpLimit);
 		}
 		catch (NumberFormatException e) {
 			Log.e("danbo",tmpLimit + " is not a number.");
-			this._limit = 10;
+			this._limit = 12;
 		}
 		
 		this._tags = new ArrayList<Tag>();
