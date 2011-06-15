@@ -39,12 +39,11 @@ public class PostRequest {
 				"posts_per_page", "12");
 		try {
 			this._limit = Integer.parseInt(tmpLimit);
-		}
-		catch (NumberFormatException e) {
-			Log.e("danbo",tmpLimit + " is not a number.");
+		} catch (NumberFormatException e) {
+			Log.e("danbo", tmpLimit + " is not a number.");
 			this._limit = 12;
 		}
-		
+
 		this._tags = new ArrayList<Tag>();
 		this._page = 1;
 	}
@@ -70,7 +69,7 @@ public class PostRequest {
 	public List<Post> execute() {
 		String url = "http://" + _host + _resource + "?limit=" + _limit
 				+ "&page=" + this._page + "&tags=";
-		if(!(_rating.equalsIgnoreCase("All"))) {
+		if (!(_rating.equalsIgnoreCase("All"))) {
 			url += "rating:" + _rating;
 		}
 		for (Tag t : _tags) {
@@ -97,8 +96,9 @@ public class PostRequest {
 				String previewUrl = entry.getString("preview_url");
 				String sampleUrl = entry.getString("sample_url");
 				String fileUrl = entry.getString("file_url");
+				int fileSize = entry.getInt("file_size");
 
-				Post p = new Post(id, previewUrl, sampleUrl, fileUrl);
+				Post p = new Post(id, previewUrl, sampleUrl, fileUrl, fileSize);
 
 				// add the constructed post to the list
 				posts.add(p);
@@ -117,11 +117,11 @@ public class PostRequest {
 	public int getPage() {
 		return _page;
 	}
-	
+
 	public void nextPage() {
 		_page++;
 	}
-	
+
 	public void previousPage() {
 		_page--;
 	}

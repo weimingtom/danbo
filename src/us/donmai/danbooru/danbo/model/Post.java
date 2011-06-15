@@ -13,6 +13,7 @@ public class Post implements Serializable {
 	private String _previewUrl;
 	private String _sampleUrl;
 	private String _fileUrl;
+	private int _fileSize;
 
 	/**
 	 * Empty constructor
@@ -25,12 +26,15 @@ public class Post implements Serializable {
 	 * @param previewUrl
 	 * @param sampleUrl
 	 * @param fileUrl
+	 * @param fileSize
 	 */
-	public Post(int id, String previewUrl, String sampleUrl, String fileUrl) {
+	public Post(int id, String previewUrl, String sampleUrl, String fileUrl,
+			int fileSize) {
 		_id = id;
 		_previewUrl = previewUrl;
 		_sampleUrl = sampleUrl;
 		_fileUrl = fileUrl;
+		_fileSize = fileSize;
 	}
 
 	/**
@@ -83,6 +87,14 @@ public class Post implements Serializable {
 	 */
 	public void setFileUrl(String fileUrl) {
 		_fileUrl = fileUrl;
+	}
+
+	public int get_fileSize() {
+		return _fileSize;
+	}
+
+	public void set_fileSize(int _fileSize) {
+		this._fileSize = _fileSize;
 	}
 
 	/**
