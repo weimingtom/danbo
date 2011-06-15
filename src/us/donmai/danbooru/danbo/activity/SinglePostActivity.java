@@ -43,8 +43,13 @@ public class SinglePostActivity extends Activity {
 		this._post = (Post) this.getIntent().getExtras().get("post");
 		try {
 			URL postFileUrl = new URL(_post.getFileUrl());
+			URL postSampleUrl = new URL(_post.getSampleUrl());
 			GetPostBitmapTask task = new GetPostBitmapTask();
-			task.execute(postFileUrl);
+			if (_post.get_fileSize() > 1024 * 1024) {
+				task.execute(postSampleUrl);
+			} else {
+				task.execute(postFileUrl);
+			}
 		} catch (Exception e) {
 			Log.e("post", e.toString());
 		}
@@ -68,8 +73,8 @@ public class SinglePostActivity extends Activity {
 				SinglePostActivity.this._postBitmap = BitmapFactory
 						.decodeStream(urls[0].openStream());
 			} catch (Exception e) {
-				Log.e("post", "Error while downloading post bitmap:\n"
-						+ e.toString());
+				Log.e("post",
+						"Error while downloading post bitmap:\n" + e.toString());
 			}
 			return null;
 		}
