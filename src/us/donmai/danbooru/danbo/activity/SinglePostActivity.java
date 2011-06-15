@@ -1,5 +1,6 @@
 package us.donmai.danbooru.danbo.activity;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -73,8 +74,8 @@ public class SinglePostActivity extends Activity {
 				SinglePostActivity.this._postBitmap = BitmapFactory
 						.decodeStream(urls[0].openStream());
 			} catch (Exception e) {
-				Log.e("post",
-						"Error while downloading post bitmap:\n" + e.toString());
+				Log.e("post", "Error while downloading post bitmap:\n"
+						+ e.toString());
 			}
 			return null;
 		}
@@ -128,21 +129,28 @@ public class SinglePostActivity extends Activity {
 			Boolean result = false;
 			if (Environment.MEDIA_MOUNTED.equals(state)) {
 				// We can read and write the media
+
+				BufferedInputStream in = null;
+				FileOutputStream fout = null;
 				try {
+
 					File rootDir = Environment.getExternalStorageDirectory();
 					File imageFile = new File(rootDir, posts[0].getImageName());
-					FileOutputStream fos = new FileOutputStream(imageFile);
+					fout = new FileOutputStream(imageFile);
+
 					URL imageUrl = new URL(posts[0].getFileUrl());
-					InputStream imageStream = imageUrl.openStream();
-					byte[] read = new byte[255];
-					while ((imageStream.read(read)) != -1) {
-						fos.write(read);
-						imageStream.close();
-						fos.close();
+					in = new BufferedInputStream(imageUrl.openStream());
+
+					byte data[] = new byte[1024];
+					int count;
+					while ((count = in.read(data, 0, 1024)) != -1) {
+						fout.write(data, 0, count);
 					}
-					result = true;
+
+					in.close();
+					fout.close();
 				} catch (Exception e) {
-					Log.e("url", e.toString());
+					Log.e("danbo", e.toString());
 				}
 			}
 			return result;
