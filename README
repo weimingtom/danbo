@@ -1,0 +1,15 @@
+Danbo
+=====
+
+See AUTHORS and COPYRIGHT for the list of contributors.
+
+Build from source
+=================
+
+The easiest way to  build and run Danbo is to get Eclipse (www.eclipse.org) and
+ADT (http://developer.android.com/sdk/eclipse-adt.html). Create a new Android
+Project, choose "From existing source" and select the folder where you found
+this README. You can create an Android package (.apk) by right clicking on the
+project, selecting "Android Tools" and then "Export Unsigned Application 
+Package".
+
