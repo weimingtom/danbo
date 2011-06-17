@@ -1,0 +1,18 @@
+Danbo
+
+version 1.0.0 (2011/06/15):
+    * List posts
+    * Display a single post
+    * List the 100 most used tags
+    * Search for tags
+    * List posts based on a tag
+    * Set a post as wallpaper
+    * Save a post on the SD card
+    * Set host preference
+    * Set rating preference
+    * Set posts per page preference
+    * Available hosts: 
+        - danbooru.donmai.us
+        - konachan.com
+        - idol.sankakucomplex.com
+        - chan.sankakucomplex.com
