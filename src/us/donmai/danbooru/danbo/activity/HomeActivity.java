@@ -1,5 +1,8 @@
 package us.donmai.danbooru.danbo.activity;
 
+import java.lang.annotation.Target;
+import java.net.URI;
+
 import us.donmai.danbooru.danbo.R;
 import us.donmai.danbooru.danbo.SharedPreferencesInstance;
 import us.donmai.danbooru.danbo.util.NetworkState;
@@ -57,7 +60,7 @@ public class HomeActivity extends Activity {
 
 			setContentView(R.layout.home);
 
-			String[] menuItems = { "Posts", "Tags" };
+			String[] menuItems = { "Posts", "Tags", "Search" };
 			ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
 			menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
 					R.layout.menu_items, menuItems));
@@ -75,6 +78,9 @@ public class HomeActivity extends Activity {
 						Intent tagsIntent = new Intent(HomeActivity.this,
 								TagListActivity.class);
 						HomeActivity.this.startActivity(tagsIntent);
+						break;
+					case 2:
+						onSearchRequested();
 						break;
 					default:
 						break;
