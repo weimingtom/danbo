@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,32 +88,7 @@ public class SinglePostActivity extends Activity {
 			ImageView postImage = new ImageView(SinglePostActivity.this);
 			postImage.setImageBitmap(SinglePostActivity.this._postBitmap);
 			rl.addView(postImage);
-			registerForContextMenu(postImage);
 			_progress.dismiss();
-		}
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.post_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.set_as_wallpaper:
-			SetWallpaperTask wallpaperTask = new SetWallpaperTask();
-			wallpaperTask.execute(_postBitmap);
-			return true;
-		case R.id.save_image:
-			SaveImageToSDTask saveTask = new SaveImageToSDTask();
-			saveTask.execute(_post);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
 		}
 	}
 
@@ -207,6 +183,28 @@ public class SinglePostActivity extends Activity {
 			}
 			_progress.dismiss();
 		}
+	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.post_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.set_as_wallpaper:
+			SetWallpaperTask wallpaperTask = new SetWallpaperTask();
+			wallpaperTask.execute(_postBitmap);
+			return true;
+		case R.id.save_image:
+			SaveImageToSDTask saveTask = new SaveImageToSDTask();
+			saveTask.execute(_post);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

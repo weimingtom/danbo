@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/set_as_wallpaper" android:title="Set as wallpaper"></item>
-<item android:id="@+id/save_image" android:title="Save on SD Card"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/set_as_wallpaper" android:title="Set as wallpaper"
+		android:icon="@drawable/ic_menu_set_as"></item>
+	<item android:id="@+id/save_image" android:title="Save on SD Card"
+		android:icon="@drawable/ic_menu_save"></item>
 </menu>
