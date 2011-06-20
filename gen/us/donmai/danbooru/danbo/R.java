@@ -16,30 +16,37 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_menu_back=0x7f020000;
-        public static final int ic_menu_forward=0x7f020001;
-        public static final int ic_menu_manage=0x7f020002;
-        public static final int ic_menu_save=0x7f020003;
-        public static final int ic_menu_set_as=0x7f020004;
-        public static final int icon=0x7f020005;
+        public static final int camera_crop_height=0x7f020000;
+        public static final int camera_crop_width=0x7f020001;
+        public static final int ic_menu_back=0x7f020002;
+        public static final int ic_menu_forward=0x7f020003;
+        public static final int ic_menu_manage=0x7f020004;
+        public static final int ic_menu_save=0x7f020005;
+        public static final int ic_menu_set_as=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int indicator_autocrop=0x7f020008;
     }
     public static final class id {
-        public static final int HomeMainLayout=0x7f080000;
-        public static final int MenuItems=0x7f080001;
-        public static final int PostGrid=0x7f080003;
-        public static final int RelativeLayout01=0x7f080002;
-        public static final int TagListView=0x7f080004;
-        public static final int next_page=0x7f080006;
-        public static final int preferences_menu_item=0x7f080005;
-        public static final int save_image=0x7f080008;
-        public static final int set_as_wallpaper=0x7f080007;
+        public static final int HomeMainLayout=0x7f080003;
+        public static final int MenuItems=0x7f080004;
+        public static final int PostGrid=0x7f080006;
+        public static final int RelativeLayout01=0x7f080005;
+        public static final int TagListView=0x7f080007;
+        public static final int discard=0x7f080002;
+        public static final int image=0x7f080000;
+        public static final int next_page=0x7f080009;
+        public static final int preferences_menu_item=0x7f080008;
+        public static final int save=0x7f080001;
+        public static final int save_image=0x7f08000b;
+        public static final int set_as_wallpaper=0x7f08000a;
     }
     public static final class layout {
-        public static final int home=0x7f030000;
-        public static final int menu_items=0x7f030001;
-        public static final int posts=0x7f030002;
-        public static final int tags=0x7f030003;
-        public static final int view_post=0x7f030004;
+        public static final int cropimage=0x7f030000;
+        public static final int home=0x7f030001;
+        public static final int menu_items=0x7f030002;
+        public static final int posts=0x7f030003;
+        public static final int tags=0x7f030004;
+        public static final int view_post=0x7f030005;
     }
     public static final class menu {
         public static final int options_menu=0x7f070000;
