@@ -54,7 +54,32 @@ public final class R {
         public static final int post_menu=0x7f070002;
     }
     public static final class string {
+        public static final int accept_welcome_message=0x7f060002;
         public static final int app_name=0x7f060000;
+        public static final int button_exit=0x7f060007;
+        public static final int error_no_connection_available=0x7f060006;
+        public static final int error_post_load_message=0x7f060009;
+        public static final int error_sd_not_available=0x7f060008;
+        public static final int generic_loading=0x7f060010;
+        public static final int home_menu_preferences=0x7f060012;
+        public static final int main_menu_posts=0x7f060003;
+        public static final int main_menu_search=0x7f060005;
+        public static final int main_menu_tags=0x7f060004;
+        public static final int postlist_menu_nextpage=0x7f060013;
+        public static final int preferences_host=0x7f060016;
+        public static final int preferences_post_per_page=0x7f060017;
+        public static final int preferences_rating=0x7f060018;
+        public static final int search_hint=0x7f060019;
+        public static final int searching=0x7f060011;
+        public static final int singlepost_loading_message=0x7f06000b;
+        public static final int singlepost_loading_title=0x7f06000a;
+        public static final int singlepost_menu_save_image=0x7f060015;
+        public static final int singlepost_menu_wallpaper=0x7f060014;
+        public static final int singlepost_saving_image_message=0x7f06000d;
+        public static final int singlepost_saving_image_title=0x7f06000c;
+        public static final int singlepost_setting_wallpaper=0x7f06000e;
+        public static final int singlepost_wallpaper_is_set=0x7f06000f;
+        public static final int welcome_message=0x7f060001;
     }
     public static final class xml {
         public static final int preferences=0x7f040000;

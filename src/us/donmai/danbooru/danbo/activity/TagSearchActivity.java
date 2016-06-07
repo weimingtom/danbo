@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,9 +38,10 @@ public class TagSearchActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
+			Resources res = getResources();
 			_progress = new ProgressDialog(TagSearchActivity.this);
 			_progress.setIndeterminate(true);
-			_progress.setMessage("Searching ...");
+			_progress.setMessage(res.getString(R.string.searching));
 			_progress.show();
 		}
 

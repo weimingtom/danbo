@@ -3,9 +3,9 @@
   android:key="preferences" android:title="Preferences" xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<ListPreference android:title="Host" android:key="host" android:entryValues="@array/host" android:entries="@array/host" android:defaultValue="danbooru.donmai.us"></ListPreference>
-<ListPreference android:title="Posts per page" android:key="posts_per_page" android:entryValues="@array/posts_per_page" android:entries="@array/posts_per_page" android:defaultValue="12"></ListPreference>
-<ListPreference android:title="Rating" android:key="rating" android:entries="@array/rating" android:entryValues="@array/rating" android:defaultValue="Safe"></ListPreference>
+<ListPreference android:key="host" android:entryValues="@array/host" android:entries="@array/host" android:defaultValue="danbooru.donmai.us" android:title="@string/preferences_host"></ListPreference>
+<ListPreference android:key="posts_per_page" android:entryValues="@array/posts_per_page" android:entries="@array/posts_per_page" android:defaultValue="12" android:title="@string/preferences_post_per_page"></ListPreference>
+<ListPreference android:key="rating" android:entries="@array/rating" android:entryValues="@array/rating" android:defaultValue="Safe" android:title="@string/preferences_rating"></ListPreference>
 
 
 </PreferenceScreen>

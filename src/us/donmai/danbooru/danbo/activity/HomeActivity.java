@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -39,22 +40,25 @@ public class HomeActivity extends Activity {
 					.getBoolean("first-launch", true);
 			if (firstLaunch) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage("Welcome to Danbo!\nDanbo is downloading "
-							+ "a lot of images off the internet and is using a lot of bandwidth."
-							+ " Please use this application on WiFi or you could get to your data cap very quickly!");
-				builder.setNeutralButton("I understand", new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
+				builder.setMessage(R.string.welcome_message);
+				builder.setNeutralButton(R.string.accept_welcome_message,
+						new OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
 				AlertDialog firstLaunchAlert = builder.create();
 				firstLaunchAlert.show();
-				SharedPreferencesInstance.getInstance().edit().putBoolean(
-						"first-launch", false).commit();
+				SharedPreferencesInstance.getInstance().edit()
+						.putBoolean("first-launch", false).commit();
 			}
 
 			setContentView(R.layout.home);
 
-			String[] menuItems = { "Posts", "Tags", "Search" };
+			Resources res = getResources();
+			String[] menuItems = { res.getString(R.string.main_menu_posts),
+					res.getString(R.string.main_menu_tags),
+					res.getString(R.string.main_menu_search) };
 			ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
 			menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
 					R.layout.menu_items, menuItems));
@@ -96,9 +100,8 @@ public class HomeActivity extends Activity {
 			 */
 			Log.d("danbo", "No connection available");
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			String errorMessage = "You need internet connectivity to use Danbo.";
-			alertBuilder.setMessage(errorMessage);
-			alertBuilder.setNegativeButton("Exit",
+			alertBuilder.setMessage(R.string.error_no_connection_available);
+			alertBuilder.setNegativeButton(R.string.button_exit,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
 							HomeActivity.this.finish();
@@ -114,9 +117,8 @@ public class HomeActivity extends Activity {
 
 		if (!(Environment.MEDIA_MOUNTED.equals(state))) {
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			String errorMessage = "SD Card is not available for writing.";
-			alertBuilder.setMessage(errorMessage);
-			alertBuilder.setNegativeButton("Exit",
+			alertBuilder.setMessage(R.string.error_sd_not_available);
+			alertBuilder.setNegativeButton(R.string.button_exit,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
 							HomeActivity.this.finish();

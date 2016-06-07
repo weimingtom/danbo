@@ -12,6 +12,7 @@ import us.donmai.danbooru.danbo.model.PostBitmap;
 import us.donmai.danbooru.danbo.model.Tag;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -36,10 +37,11 @@ public class PostListActivity extends Activity {
 		private ProgressDialog _progressDialog;
 
 		public GetPostListTask() {
+			Resources res = getResources();
 			_progressDialog = new ProgressDialog(PostListActivity.this);
 			_progressDialog.setIndeterminate(false);
 			_progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			_progressDialog.setMessage("Loading ...");
+			_progressDialog.setMessage(res.getString(R.string.generic_loading));
 		}
 
 		@Override
@@ -74,7 +76,7 @@ public class PostListActivity extends Activity {
 				gv.setAdapter(adapter);
 			} else {
 				Toast msg = Toast.makeText(PostListActivity.this,
-						"An error occured during the loading, try again",
+						R.string.error_post_load_message,
 						Toast.LENGTH_LONG);
 				msg.show();
 			}

@@ -13,6 +13,7 @@ import us.donmai.danbooru.danbo.model.Tag;
 import us.donmai.danbooru.danbo.util.IOHelpers;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -40,8 +41,9 @@ public class TagListActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
+			Resources res = getResources();
 			_progress = ProgressDialog.show(TagListActivity.this, "",
-					"Loading. Please wait...", true);
+					res.getString(R.string.generic_loading), true);
 		}
 
 		@Override

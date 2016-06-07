@@ -11,6 +11,7 @@ import us.donmai.danbooru.danbo.model.Post;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -62,9 +63,10 @@ public class SinglePostActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
+			Resources res = getResources();
 			_progress = ProgressDialog.show(SinglePostActivity.this,
-					"Loading image",
-					"Please wait while the post image is downloaded", true);
+					res.getString(R.string.singlepost_loading_title),
+					res.getString(R.string.singlepost_loading_message), true);
 		}
 
 		@Override
@@ -99,8 +101,10 @@ public class SinglePostActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
+			Resources res = getResources();
 			_savingDialog = ProgressDialog.show(SinglePostActivity.this,
-					"Saving Image", "Saving image, please wait ...");
+					res.getString(R.string.singlepost_saving_image_title),
+					res.getString(R.string.singlepost_saving_image_message));
 		}
 
 		@Override
@@ -148,9 +152,9 @@ public class SinglePostActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-
+			Resources res = getResources();
 			_progress = new ProgressDialog(SinglePostActivity.this);
-			_progress.setMessage("Setting wallpaper, please wait ...");
+			_progress.setMessage(res.getString(R.string.singlepost_setting_wallpaper));
 			_progress.show();
 		}
 
@@ -194,9 +198,9 @@ public class SinglePostActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-
+			Resources res = getResources();
 			Toast msg = Toast.makeText(SinglePostActivity.this,
-					"Your new wallpaper is set", Toast.LENGTH_SHORT);
+					res.getString(R.string.singlepost_wallpaper_is_set), Toast.LENGTH_SHORT);
 			msg.show();
 			_progress.dismiss();
 		}
