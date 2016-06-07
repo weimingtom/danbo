@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -31,8 +32,25 @@ public class HomeActivity extends Activity {
 
 		if (checkPhoneStatus()) {
 			// Everything is good, we can launch Danbo
-			
+
 			SharedPreferencesInstance.initialize(this);
+
+			boolean firstLaunch = SharedPreferencesInstance.getInstance()
+					.getBoolean("first-launch", true);
+			if (firstLaunch) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage("Welcome to Danbo!\nDanbo is downloading "
+							+ "a lot of images off the internet and is using a lot of bandwith."
+							+ " Please use this application on WiFi or you could get to your data cap very quickly!");
+				builder.setNeutralButton("I understand", new OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+				AlertDialog firstLaunchAlert = builder.create();
+				firstLaunchAlert.show();
+				SharedPreferencesInstance.getInstance().edit().putBoolean(
+						"first-launch", false).commit();
+			}
 
 			setContentView(R.layout.home);
 
