@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,9 +38,10 @@ public class TagSearchActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
+			Resources res = getResources();
 			_progress = new ProgressDialog(TagSearchActivity.this);
 			_progress.setIndeterminate(true);
-			_progress.setMessage("Searching ...");
+			_progress.setMessage(res.getString(R.string.searching));
 			_progress.show();
 		}
 
@@ -49,8 +51,8 @@ public class TagSearchActivity extends Activity {
 			ArrayList<Tag> tags = new ArrayList<Tag>();
 			try {
 				String host = SharedPreferencesInstance.getInstance()
-						.getString("host", "danbooru.donmai.us");
-				URL tagsUrl = new URL("http://" + host
+						.getString("host", "https://danbooru.donmai.us");
+				URL tagsUrl = new URL(host
 						+ "/tag/index.json?name=" + params[0] + "*");
 				InputStream responseStream = tagsUrl.openStream();
 				String jsonString = IOHelpers
@@ -63,6 +65,7 @@ public class TagSearchActivity extends Activity {
 					tags.add(t);
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				Log.e("Search", e.toString());
 				Toast message = Toast.makeText(TagSearchActivity.this,
 						"Search error", Toast.LENGTH_LONG);
@@ -77,7 +80,10 @@ public class TagSearchActivity extends Activity {
 					TagSearchActivity.this);
 			ListView lv = (ListView) findViewById(R.id.TagListView);
 			lv.setAdapter(adapter);
-			_progress.dismiss();
+			try {
+				_progress.dismiss();
+			} catch (Exception e) {
+			}
 		}
 	}
 

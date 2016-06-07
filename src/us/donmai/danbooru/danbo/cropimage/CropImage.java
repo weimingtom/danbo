@@ -168,6 +168,7 @@ public class CropImage extends MonitoredActivity {
 	    in = mContentResolver.openInputStream(uri);
 	    return BitmapFactory.decodeStream(in);
 	} catch (FileNotFoundException e) {
+		e.printStackTrace();
 	    Log.e(TAG, "file " + path + " not found");
 	}
 	return null;
@@ -331,6 +332,7 @@ public class CropImage extends MonitoredActivity {
 		    croppedImage.compress(mOutputFormat, 75, outputStream);
 		}
 	    } catch (IOException ex) {
+	    	ex.printStackTrace();
 		// TODO: report error to caller
 		Log.e(TAG, "Cannot open file: " + mSaveUri, ex);
 	    } finally {

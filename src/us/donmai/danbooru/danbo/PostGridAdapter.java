@@ -7,6 +7,7 @@ import us.donmai.danbooru.danbo.model.Post;
 import us.donmai.danbooru.danbo.model.PostBitmap;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,14 +48,16 @@ public class PostGridAdapter extends BaseAdapter {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView;
+		Resources res = _context.getResources();
 
 		if (convertView == null) {
 			imageView = new ImageView(_context);
 			// Image display
 			// 
-			imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
+			imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  (int)res.getDimension(R.dimen.gridview_imageview_height)));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(4, 4, 4, 4);
+			int padding = (int)res.getDimension(R.dimen.gridview_imageview_padding);
+			imageView.setPadding(padding, padding, padding, padding);
 		} else {
 			imageView = (ImageView) convertView;
 		}

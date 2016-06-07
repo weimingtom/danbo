@@ -12,6 +12,7 @@ import us.donmai.danbooru.danbo.model.PostBitmap;
 import us.donmai.danbooru.danbo.model.Tag;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -28,7 +29,6 @@ import android.widget.Toast;
  */
 public class PostListActivity extends Activity {
 
-	private int _currentPage = 1;
 	private PostRequest _request;
 
 	private class GetPostListTask extends
@@ -36,10 +36,11 @@ public class PostListActivity extends Activity {
 		private ProgressDialog _progressDialog;
 
 		public GetPostListTask() {
+			Resources res = getResources();
 			_progressDialog = new ProgressDialog(PostListActivity.this);
 			_progressDialog.setIndeterminate(false);
 			_progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			_progressDialog.setMessage("Loading ...");
+			_progressDialog.setMessage(res.getString(R.string.generic_loading));
 		}
 
 		@Override
@@ -58,6 +59,7 @@ public class PostListActivity extends Activity {
 					this.publishProgress(data.size());
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				Log.e("Exception", e.toString());
 			}
 
@@ -66,7 +68,10 @@ public class PostListActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ArrayList<PostBitmap> result) {
-			this._progressDialog.dismiss();
+			try {
+				this._progressDialog.dismiss();
+			} catch (Exception e) {
+			}
 			if (result != null) {
 				GridView gv = (GridView) findViewById(R.id.PostGrid);
 				PostGridAdapter adapter = new PostGridAdapter(result,
@@ -74,8 +79,7 @@ public class PostListActivity extends Activity {
 				gv.setAdapter(adapter);
 			} else {
 				Toast msg = Toast.makeText(PostListActivity.this,
-						"An error occured during the loading, try again",
-						Toast.LENGTH_LONG);
+						R.string.error_post_load_message, Toast.LENGTH_LONG);
 				msg.show();
 			}
 		}
@@ -121,16 +125,26 @@ public class PostListActivity extends Activity {
 	}
 
 	@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		if (_request.getPage() == 1) {
+			menu.findItem(R.id.previous_page).setEnabled(false);
+		} else {
+			menu.findItem(R.id.previous_page).setEnabled(true);
+		}
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		// case R.id.previous_page:
-		// if (_currentPage > 1) {
-		// _request.previousPage();
-		// GetPostListTask t = new GetPostListTask();
-		// t.execute(_request);
-		// }
-		// return true;
+		case R.id.previous_page:
+			if (this._request.getPage() > 1) {
+				_request.previousPage();
+				GetPostListTask t = new GetPostListTask();
+				t.execute(_request);
+			}
+			return true;
 		case R.id.next_page:
 			_request.nextPage();
 			GetPostListTask t = new GetPostListTask();

@@ -1,39 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	android:versionCode="1" android:versionName="1.0" package="us.donmai.danbooru.danbo">
-	<application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
-		<activity android:label="@string/app_name"
-			android:screenOrientation="portrait" android:name=".activity.HomeActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-			<meta-data android:name="android.app.default_searchable"
-                   android:value=".activity.TagSearchActivity" />
-		</activity>
+    package="us.donmai.danbooru.danbo"
+    android:installLocation="auto"
+    android:versionCode="2"
+    android:versionName="1.1" >
 
-		<activity android:screenOrientation="portrait" android:name=".activity.PostListActivity"></activity>
-		<activity android:screenOrientation="portrait" android:name=".activity.PreferencesActivity"></activity>
-		<activity android:screenOrientation="portrait" android:name=".activity.SinglePostActivity"></activity>
-		<activity android:screenOrientation="portrait" android:name=".activity.TagListActivity"></activity>
-		<activity android:screenOrientation="portrait" android:name=".activity.TagSearchActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.SEARCH" />
-			</intent-filter>
-			<meta-data android:name="android.app.searchable"
-				android:resource="@xml/searchable" />
-		</activity>
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="16" />
 
-		<meta-data android:name="android.app.default_searchable"
-			android:value="TagSearchActivity" />
-		<activity android:name=".cropimage.CropImage"></activity>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-	</application>
-	<uses-sdk android:minSdkVersion="3"/>
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" 
+        android:theme="@style/AppTheme"
+        android:allowBackup="false">
+        <activity
+            android:name="us.donmai.danbooru.danbo.activity.HomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="us.donmai.danbooru.danbo.activity.TagSearchActivity" />
+        </activity>
+        <activity android:name="us.donmai.danbooru.danbo.activity.PostListActivity" />
+        <activity android:name="us.donmai.danbooru.danbo.activity.PreferencesActivity" />
+        <activity android:name="us.donmai.danbooru.danbo.activity.SinglePostActivity" />
+        <activity android:name="us.donmai.danbooru.danbo.activity.TagListActivity" />
+        <activity android:name="us.donmai.danbooru.danbo.activity.TagSearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="us.donmai.danbooru.danbo.activity.TagSearchActivity" />
+        <activity android:name="us.donmai.danbooru.danbo.cropimage.CropImage" />
+    </application>
 
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-	<uses-permission android:name="android.permission.SET_WALLPAPER"></uses-permission>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-</manifest> 
+</manifest>

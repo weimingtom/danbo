@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string-array name="host">
-		<item>danbooru.donmai.us</item>
-		<item>konachan.com</item>
-		<item>idol.sankakucomplex.com</item>
-		<item>chan.sankakucomplex.com</item>
+		<item>https://danbooru.donmai.us</item>
+		<item>https://konachan.com</item>
+		<item>https://idol.sankakucomplex.com</item>
+		<item>https://chan.sankakucomplex.com</item>
+		<item>https://yande.re</item>
 	</string-array>
 	<string-array name="rating">
 		<item>Safe</item>

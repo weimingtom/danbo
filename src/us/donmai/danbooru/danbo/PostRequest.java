@@ -2,7 +2,9 @@ package us.donmai.danbooru.danbo;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class PostRequest {
 
 	private void init() {
 		this._host = SharedPreferencesInstance.getInstance().getString("host",
-				"danbooru.donmai.us");
+				"https://danbooru.donmai.us");
 		this._rating = SharedPreferencesInstance.getInstance().getString(
 				"rating", "Safe");
 		this._resource = "/post/index.json";
@@ -40,6 +42,7 @@ public class PostRequest {
 		try {
 			this._limit = Integer.parseInt(tmpLimit);
 		} catch (NumberFormatException e) {
+			e.printStackTrace();
 			Log.e("danbo", tmpLimit + " is not a number.");
 			this._limit = 12;
 		}
@@ -67,7 +70,7 @@ public class PostRequest {
 	 * @throws JSONException
 	 */
 	public List<Post> execute() {
-		String url = "http://" + _host + _resource + "?limit=" + _limit
+		String url = _host + _resource + "?limit=" + _limit
 				+ "&page=" + this._page + "&tags=";
 		if (!(_rating.equalsIgnoreCase("All"))) {
 			url += "rating:" + _rating;
@@ -79,9 +82,24 @@ public class PostRequest {
 		ArrayList<Post> posts = new ArrayList<Post>();
 
 		try {
+			//url = "https://yande.re/post/index.json?limit=12&page=1&tags=rating:Safe";
+			//http://stackoverflow.com/questions/3163693/java-urlconnection-timeout
 			URL jsonUrl = new URL(url);
-			InputStream jsonStream = jsonUrl.openStream();
+			//URLConnection connection = jsonUrl.openConnection();
+			
+			HttpURLConnection connection = (HttpURLConnection) jsonUrl.openConnection();
+			HttpURLConnection.setFollowRedirects(false);
+			connection.setConnectTimeout(15 * 1000);
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
+			connection.connect();
+			
+			//connection.setUseCaches(false);
+			//connection.setReadTimeout(5000);
+			InputStream jsonStream = connection.getInputStream();
 			String jsonString = IOHelpers.convertStreamToString(jsonStream);
+			System.out.println("url==" + url);
+			System.out.println("jsonString==" + jsonString);
 			_response = new JSONArray(jsonString);
 
 			int i = 0;
@@ -94,8 +112,24 @@ public class PostRequest {
 				int id = entry.getInt("id");
 
 				String previewUrl = entry.getString("preview_url");
-				String sampleUrl = entry.getString("sample_url");
+				if (previewUrl != null && !previewUrl.startsWith("http")) {
+					previewUrl = _host + previewUrl;
+				}
+				String sampleUrl = null;
+				if (entry.has("sample_url") && entry.getString("sample_url") != null) {
+					sampleUrl = entry.getString("sample_url"); //"";//entry.getString("sample_url");
+				} else {
+					sampleUrl = entry.getString("file_url"); //"";//entry.getString("sample_url");
+				}
+				if (sampleUrl != null && !sampleUrl.startsWith("http")) {
+					sampleUrl = _host + sampleUrl;
+				}
 				String fileUrl = entry.getString("file_url");
+				if (fileUrl != null && !fileUrl.startsWith("http")) {
+					fileUrl = _host + fileUrl;
+				}
+				System.out.println("previewUrl == " + previewUrl);
+				
 				int fileSize = entry.getInt("file_size");
 
 				Post p = new Post(id, previewUrl, sampleUrl, fileUrl, fileSize);
@@ -105,6 +139,7 @@ public class PostRequest {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			Log.e("Request Exception", e.toString());
 		}
 		return posts;

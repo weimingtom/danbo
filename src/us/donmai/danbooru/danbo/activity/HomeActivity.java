@@ -1,8 +1,5 @@
 package us.donmai.danbooru.danbo.activity;
 
-import java.lang.annotation.Target;
-import java.net.URI;
-
 import us.donmai.danbooru.danbo.R;
 import us.donmai.danbooru.danbo.SharedPreferencesInstance;
 import us.donmai.danbooru.danbo.util.NetworkState;
@@ -10,7 +7,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,39 +31,37 @@ public class HomeActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		/* Is a connection available ? */
-		NetworkState ns = new NetworkState(this);
+		if (checkPhoneStatus()) {
+			// Everything is good, we can launch Danbo
 
-		if (!ns.connectionAvailable()) {
-
-			/**
-			 * No network available, we display an error message and exit
-			 */
-			Log.d("danbo", "No connection available");
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			String errorMessage = "You need internet connectivity to use Danbo.";
-			alertBuilder.setMessage(errorMessage);
-			alertBuilder.setNegativeButton("Exit",
-					new DialogInterface.OnClickListener() {
-
-						public void onClick(DialogInterface arg0, int arg1) {
-							HomeActivity.this.finish();
-
-						}
-					});
-			AlertDialog networkAlert = alertBuilder.create();
-			networkAlert.show();
-		} else {
-
-			// a connection is available
 			SharedPreferencesInstance.initialize(this);
+
+			boolean firstLaunch = SharedPreferencesInstance.getInstance()
+					.getBoolean("first-launch", true);
+			if (firstLaunch) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage(R.string.welcome_message);
+				builder.setNeutralButton(R.string.accept_welcome_message,
+						new OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
+				AlertDialog firstLaunchAlert = builder.create();
+				firstLaunchAlert.show();
+				SharedPreferencesInstance.getInstance().edit()
+						.putBoolean("first-launch", false).commit();
+			}
 
 			setContentView(R.layout.home);
 
-			String[] menuItems = { "Posts", "Tags", "Search" };
+			Resources res = getResources();
+			String[] menuItems = { res.getString(R.string.main_menu_posts),
+					res.getString(R.string.main_menu_tags),
+					res.getString(R.string.main_menu_search) };
 			ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
 			menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
-					R.layout.menu_items, menuItems));
+					android.R.layout.simple_list_item_1, android.R.id.text1, menuItems));
 			menuItemsListView.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> arg0, View v,
@@ -89,6 +87,49 @@ public class HomeActivity extends Activity {
 				}
 			});
 		}
+	}
+
+	private boolean checkPhoneStatus() {
+		/* Is a connection available ? */
+		NetworkState ns = new NetworkState(this);
+
+		if (!ns.connectionAvailable()) {
+
+			/**
+			 * No network available, we display an error message and exit
+			 */
+			Log.d("danbo", "No connection available");
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setMessage(R.string.error_no_connection_available);
+			alertBuilder.setNegativeButton(R.string.button_exit,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							HomeActivity.this.finish();
+						}
+					});
+			AlertDialog networkAlert = alertBuilder.create();
+			networkAlert.show();
+			return false;
+		}
+
+		/* Check if the SD Card is available for writing */
+		String state = Environment.getExternalStorageState();
+
+		if (!(Environment.MEDIA_MOUNTED.equals(state))) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setMessage(R.string.error_sd_not_available);
+			alertBuilder.setNegativeButton(R.string.button_exit,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							HomeActivity.this.finish();
+						}
+					});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
