@@ -40,7 +40,7 @@ public class HomeActivity extends Activity {
 			if (firstLaunch) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setMessage("Welcome to Danbo!\nDanbo is downloading "
-							+ "a lot of images off the internet and is using a lot of bandwith."
+							+ "a lot of images off the internet and is using a lot of bandwidth."
 							+ " Please use this application on WiFi or you could get to your data cap very quickly!");
 				builder.setNeutralButton("I understand", new OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
