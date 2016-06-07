@@ -1,8 +1,5 @@
 package us.donmai.danbooru.danbo.activity;
 
-import java.lang.annotation.Target;
-import java.net.URI;
-
 import us.donmai.danbooru.danbo.R;
 import us.donmai.danbooru.danbo.SharedPreferencesInstance;
 import us.donmai.danbooru.danbo.util.NetworkState;
@@ -11,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,31 +29,9 @@ public class HomeActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		/* Is a connection available ? */
-		NetworkState ns = new NetworkState(this);
-
-		if (!ns.connectionAvailable()) {
-
-			/**
-			 * No network available, we display an error message and exit
-			 */
-			Log.d("danbo", "No connection available");
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			String errorMessage = "You need internet connectivity to use Danbo.";
-			alertBuilder.setMessage(errorMessage);
-			alertBuilder.setNegativeButton("Exit",
-					new DialogInterface.OnClickListener() {
-
-						public void onClick(DialogInterface arg0, int arg1) {
-							HomeActivity.this.finish();
-
-						}
-					});
-			AlertDialog networkAlert = alertBuilder.create();
-			networkAlert.show();
-		} else {
-
-			// a connection is available
+		if (checkPhoneStatus()) {
+			// Everything is good, we can launch Danbo
+			
 			SharedPreferencesInstance.initialize(this);
 
 			setContentView(R.layout.home);
@@ -89,6 +65,51 @@ public class HomeActivity extends Activity {
 				}
 			});
 		}
+	}
+
+	private boolean checkPhoneStatus() {
+		/* Is a connection available ? */
+		NetworkState ns = new NetworkState(this);
+
+		if (!ns.connectionAvailable()) {
+
+			/**
+			 * No network available, we display an error message and exit
+			 */
+			Log.d("danbo", "No connection available");
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			String errorMessage = "You need internet connectivity to use Danbo.";
+			alertBuilder.setMessage(errorMessage);
+			alertBuilder.setNegativeButton("Exit",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							HomeActivity.this.finish();
+						}
+					});
+			AlertDialog networkAlert = alertBuilder.create();
+			networkAlert.show();
+			return false;
+		}
+
+		/* Check if the SD Card is available for writing */
+		String state = Environment.getExternalStorageState();
+
+		if (!(Environment.MEDIA_MOUNTED.equals(state))) {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			String errorMessage = "SD Card is not available for writing.";
+			alertBuilder.setMessage(errorMessage);
+			alertBuilder.setNegativeButton("Exit",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							HomeActivity.this.finish();
+						}
+					});
+			AlertDialog alert = alertBuilder.create();
+			alert.show();
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
