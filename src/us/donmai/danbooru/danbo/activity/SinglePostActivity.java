@@ -12,18 +12,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -76,8 +73,8 @@ public class SinglePostActivity extends Activity {
 				SinglePostActivity.this._postBitmap = BitmapFactory
 						.decodeStream(urls[0].openStream());
 			} catch (Exception e) {
-				Log.e("post", "Error while downloading post bitmap:\n"
-						+ e.toString());
+				Log.e("post",
+						"Error while downloading post bitmap:\n" + e.toString());
 			}
 			return null;
 		}
@@ -93,74 +90,12 @@ public class SinglePostActivity extends Activity {
 		}
 	}
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.post_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.set_as_wallpaper:
-
-		case R.id.save_image:
-			SaveImageToSDTask saveTask = new SaveImageToSDTask();
-			saveTask.execute(_post);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
-
 	/**
 	 * An asynchronous task to download and save an image to the SD card
 	 */
-	private class SaveImageToSDTask extends AsyncTask<Post, Void, Boolean> {
+	private class SaveImageToSDTask extends AsyncTask<Void, Void, Void> {
 
 		ProgressDialog _savingDialog;
-
-		@Override
-		protected Boolean doInBackground(Post... posts) {
-			String state = Environment.getExternalStorageState();
-			Boolean result = false;
-			if (Environment.MEDIA_MOUNTED.equals(state)) {
-				// We can read and write the media
-
-				File danboDir = new File(Environment
-						.getExternalStorageDirectory()
-						+ "/Danbo");
-
-				File imageFile;
-				if (danboDir.mkdir() || danboDir.exists()) {
-					imageFile = new File(Environment
-							.getExternalStorageDirectory()
-							+ "/Danbo/" + posts[0].getImageName());
-				} else {
-					imageFile = new File(Environment
-							.getExternalStorageDirectory()
-							+ "/" + posts[0].getImageName());
-				}
-				try {
-					if (imageFile.createNewFile() || imageFile.exists()) {
-						FileOutputStream fos = new FileOutputStream(imageFile);
-						int png = posts[0].getImageName().lastIndexOf(".png");
-						if (png == -1) {
-							SinglePostActivity.this._postBitmap.compress(
-									CompressFormat.JPEG, 90, fos);
-						} else {
-							SinglePostActivity.this._postBitmap.compress(
-									CompressFormat.PNG, 90, fos);
-						}
-					}
-				} catch (Exception e) {
-					Log.e("danbo", e.toString());
-				}
-			}
-			return result;
-		}
 
 		@Override
 		protected void onPreExecute() {
@@ -169,12 +104,45 @@ public class SinglePostActivity extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected Void doInBackground(Void... params) {
+			String state = Environment.getExternalStorageState();
+			if (Environment.MEDIA_MOUNTED.equals(state)) {
+				// We can read and write the media
+				File rootDirectory = Environment.getExternalStorageDirectory();
+				try {
+					File danboDirectory = new File(rootDirectory + "/danbo");
+					if (!danboDirectory.exists()) {
+						danboDirectory.mkdir();
+					}
+
+					File imageFile = new File(danboDirectory
+							+ _post.getImageName());
+					if (!imageFile.exists()) {
+						imageFile.createNewFile();
+					}
+					FileOutputStream fos = new FileOutputStream(imageFile);
+					int png = _post.getImageName().lastIndexOf(".png");
+					if (png == -1) {
+						SinglePostActivity.this._postBitmap.compress(
+								CompressFormat.JPEG, 90, fos);
+					} else {
+						SinglePostActivity.this._postBitmap.compress(
+								CompressFormat.PNG, 90, fos);
+					}
+				} catch (Exception e) {
+					Log.e("danbo", e.toString());
+				}
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void res) {
 			_savingDialog.dismiss();
 		}
 	}
 
-	private class SetWallpaperTask extends AsyncTask<Bitmap, Void, Boolean> {
+	private class SetWallpaperTask extends AsyncTask<Void, Void, Void> {
 
 		ProgressDialog _progress;
 
@@ -187,35 +155,49 @@ public class SinglePostActivity extends Activity {
 		}
 
 		@Override
-		protected Boolean doInBackground(Bitmap... params) {
-			boolean result = false;
-			if (params[0] != null) {
+		protected Void doInBackground(Void... params) {
+
+			String state = Environment.getExternalStorageState();
+
+			if (Environment.MEDIA_MOUNTED.equals(state)) {
+				// We can read and write the media
+				File rootDirectory = Environment.getExternalStorageDirectory();
 				try {
-					File wallpaperFile = new File(Environment
-							.getExternalStorageDirectory()
-							+ "/Danbo/wallpaper.jpg");
-					FileInputStream fis = new FileInputStream(wallpaperFile);
-					SinglePostActivity.this.setWallpaper(fis);
-					result = true;
-				} catch (IOException e) {
-					e.printStackTrace();
+					File danboDirectory = new File(rootDirectory + "/danbo");
+					if (!danboDirectory.exists())
+						danboDirectory.mkdir();
+
+					File wallpaperFile = new File(danboDirectory
+							+ "/wallpaper.jpg");
+
+					if (!wallpaperFile.exists())
+						wallpaperFile.createNewFile();
+
+					FileOutputStream fos = new FileOutputStream(wallpaperFile);
+					SinglePostActivity.this._postBitmap.compress(
+							CompressFormat.JPEG, 90, fos);
+
+				} catch (Exception e) {
+					Log.e("danbo", e.toString());
 				}
 			}
-			return result;
+			try {
+				File root = Environment.getExternalStorageDirectory();
+				File wallpaperFile = new File(root + "/danbo/wallpaper.jpg");
+				FileInputStream fis = new FileInputStream(wallpaperFile);
+				SinglePostActivity.this.setWallpaper(fis);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) {
-			if (result) {
-				Toast msg = Toast.makeText(SinglePostActivity.this,
-						"Your new wallpaper is set", Toast.LENGTH_SHORT);
-				msg.show();
-			} else {
-				Toast msg = Toast.makeText(SinglePostActivity.this,
-						"An error occured while setting the wallpaper",
-						Toast.LENGTH_LONG);
-				msg.show();
-			}
+		protected void onPostExecute(Void result) {
+
+			Toast msg = Toast.makeText(SinglePostActivity.this,
+					"Your new wallpaper is set", Toast.LENGTH_SHORT);
+			msg.show();
 			_progress.dismiss();
 		}
 	}
@@ -231,45 +213,23 @@ public class SinglePostActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.set_as_wallpaper:
-			File danboDir = new File(Environment.getExternalStorageDirectory()
-					+ "/Danbo");
-
-			File wallpaperFile;
-			if (danboDir.mkdir() || danboDir.exists()) {
-				wallpaperFile = new File(Environment
-						.getExternalStorageDirectory()
-						+ "/Danbo/wallpaper.jpg");
-			} else {
-				wallpaperFile = new File(Environment
-						.getExternalStorageDirectory()
-						+ "/wallpaper.jpg");
-			}
-			try {
-				if (wallpaperFile.createNewFile() || wallpaperFile.exists()) {
-					FileOutputStream fos = new FileOutputStream(wallpaperFile);
-					SinglePostActivity.this._postBitmap.compress(
-							CompressFormat.JPEG, 90, fos);
-				}
-			} catch (Exception e) {
-				Log.e("danbo", e.toString());
-			}
 
 			// image cropping
 
-//			Intent i = new Intent(SinglePostActivity.this,
-//					us.donmai.danbooru.danbo.cropimage.CropImage.class);
-//
-//			i.putExtra("image-path", wallpaperFile.getPath());
-//			i.putExtra("scale", true);
-//			startActivityForResult(i, 42);
-			
+			// Intent i = new Intent(SinglePostActivity.this,
+			// us.donmai.danbooru.danbo.cropimage.CropImage.class);
+			//
+			// i.putExtra("image-path", wallpaperFile.getPath());
+			// i.putExtra("scale", true);
+			// startActivityForResult(i, 42);
+
 			SetWallpaperTask wallpaperTask = new SetWallpaperTask();
-			wallpaperTask.execute(_postBitmap);
+			wallpaperTask.execute();
 
 			return true;
 		case R.id.save_image:
 			SaveImageToSDTask saveTask = new SaveImageToSDTask();
-			saveTask.execute(_post);
+			saveTask.execute();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -279,7 +239,7 @@ public class SinglePostActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 42) {
 			SetWallpaperTask wallpaperTask = new SetWallpaperTask();
-			wallpaperTask.execute(_postBitmap);
+			wallpaperTask.execute();
 		}
 	}
 }
