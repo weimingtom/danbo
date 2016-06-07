@@ -256,12 +256,15 @@ public class SinglePostActivity extends Activity {
 
 			// image cropping
 
-			Intent i = new Intent(SinglePostActivity.this,
-					us.donmai.danbooru.danbo.cropimage.CropImage.class);
-
-			i.putExtra("image-path", wallpaperFile.getPath());
-			i.putExtra("scale", true);
-			startActivityForResult(i, 42);
+//			Intent i = new Intent(SinglePostActivity.this,
+//					us.donmai.danbooru.danbo.cropimage.CropImage.class);
+//
+//			i.putExtra("image-path", wallpaperFile.getPath());
+//			i.putExtra("scale", true);
+//			startActivityForResult(i, 42);
+			
+			SetWallpaperTask wallpaperTask = new SetWallpaperTask();
+			wallpaperTask.execute(_postBitmap);
 
 			return true;
 		case R.id.save_image:
