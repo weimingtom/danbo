@@ -193,7 +193,7 @@ public class SinglePostActivity extends Activity {
 				try {
 					File wallpaperFile = new File(Environment
 							.getExternalStorageDirectory()
-							+ "/Danbo/wallpaper.png");
+							+ "/Danbo/wallpaper.jpg");
 					FileInputStream fis = new FileInputStream(wallpaperFile);
 					SinglePostActivity.this.setWallpaper(fis);
 					result = true;
@@ -238,17 +238,17 @@ public class SinglePostActivity extends Activity {
 			if (danboDir.mkdir() || danboDir.exists()) {
 				wallpaperFile = new File(Environment
 						.getExternalStorageDirectory()
-						+ "/Danbo/wallpaper.png");
+						+ "/Danbo/wallpaper.jpg");
 			} else {
 				wallpaperFile = new File(Environment
 						.getExternalStorageDirectory()
-						+ "/wallpaper.png");
+						+ "/wallpaper.jpg");
 			}
 			try {
 				if (wallpaperFile.createNewFile() || wallpaperFile.exists()) {
 					FileOutputStream fos = new FileOutputStream(wallpaperFile);
 					SinglePostActivity.this._postBitmap.compress(
-							CompressFormat.PNG, 90, fos);
+							CompressFormat.JPEG, 90, fos);
 				}
 			} catch (Exception e) {
 				Log.e("danbo", e.toString());
