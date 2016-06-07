@@ -79,7 +79,10 @@ public class TagSearchActivity extends Activity {
 					TagSearchActivity.this);
 			ListView lv = (ListView) findViewById(R.id.TagListView);
 			lv.setAdapter(adapter);
-			_progress.dismiss();
+			try {
+				_progress.dismiss();
+			} catch (Exception e) {
+			}
 		}
 	}
 

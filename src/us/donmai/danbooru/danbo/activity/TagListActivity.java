@@ -50,28 +50,31 @@ public class TagListActivity extends Activity {
 		protected void onPostExecute(Void r) {
 			ListView lv = (ListView) findViewById(R.id.TagListView);
 			lv.setAdapter(_adapter);
-			_progress.dismiss();
+			try {
+				_progress.dismiss();
+			} catch (Exception e) {
+			}
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				String host = SharedPreferencesInstance.getInstance().getString("host", "danbooru.donmai.us");
-			URL tagListUrl = new URL(
-					"http://"+host+"/tag/index.json?order=count&limit=100");
-			String jsonString = IOHelpers.convertStreamToString(tagListUrl
-					.openStream());
-			JSONArray jsonTags = new JSONArray(jsonString);
+				String host = SharedPreferencesInstance.getInstance()
+						.getString("host", "danbooru.donmai.us");
+				URL tagListUrl = new URL("http://" + host
+						+ "/tag/index.json?order=count&limit=100");
+				String jsonString = IOHelpers.convertStreamToString(tagListUrl
+						.openStream());
+				JSONArray jsonTags = new JSONArray(jsonString);
 
-			ArrayList<Tag> tags = new ArrayList<Tag>();
-			for (int i = 0; i < jsonTags.length(); i++) {
-				JSONObject jso = jsonTags.getJSONObject(i);
-				Tag t = new Tag(jso.getString("name"));
-				tags.add(t);
-			}
-			_adapter = new TagListAdapter(tags, TagListActivity.this);
-			}
- catch (Exception e) {
+				ArrayList<Tag> tags = new ArrayList<Tag>();
+				for (int i = 0; i < jsonTags.length(); i++) {
+					JSONObject jso = jsonTags.getJSONObject(i);
+					Tag t = new Tag(jso.getString("name"));
+					tags.add(t);
+				}
+				_adapter = new TagListAdapter(tags, TagListActivity.this);
+			} catch (Exception e) {
 				// TODO: handle exception
 			}
 			return null;

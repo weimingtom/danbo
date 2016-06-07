@@ -88,7 +88,10 @@ public class SinglePostActivity extends Activity {
 			ImageView postImage = new ImageView(SinglePostActivity.this);
 			postImage.setImageBitmap(SinglePostActivity.this._postBitmap);
 			rl.addView(postImage);
-			_progress.dismiss();
+			try {
+				_progress.dismiss();
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -142,7 +145,10 @@ public class SinglePostActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void res) {
-			_savingDialog.dismiss();
+			try {
+				_savingDialog.dismiss();
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -154,7 +160,8 @@ public class SinglePostActivity extends Activity {
 		protected void onPreExecute() {
 			Resources res = getResources();
 			_progress = new ProgressDialog(SinglePostActivity.this);
-			_progress.setMessage(res.getString(R.string.singlepost_setting_wallpaper));
+			_progress.setMessage(res
+					.getString(R.string.singlepost_setting_wallpaper));
 			_progress.show();
 		}
 
@@ -200,9 +207,13 @@ public class SinglePostActivity extends Activity {
 		protected void onPostExecute(Void result) {
 			Resources res = getResources();
 			Toast msg = Toast.makeText(SinglePostActivity.this,
-					res.getString(R.string.singlepost_wallpaper_is_set), Toast.LENGTH_SHORT);
+					res.getString(R.string.singlepost_wallpaper_is_set),
+					Toast.LENGTH_SHORT);
 			msg.show();
-			_progress.dismiss();
+			try {
+				_progress.dismiss();
+			} catch (Exception e) {
+			}
 		}
 	}
 

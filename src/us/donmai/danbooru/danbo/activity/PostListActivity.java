@@ -68,7 +68,10 @@ public class PostListActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ArrayList<PostBitmap> result) {
-			this._progressDialog.dismiss();
+			try {
+				this._progressDialog.dismiss();
+			} catch (Exception e) {
+			}
 			if (result != null) {
 				GridView gv = (GridView) findViewById(R.id.PostGrid);
 				PostGridAdapter adapter = new PostGridAdapter(result,
@@ -76,8 +79,7 @@ public class PostListActivity extends Activity {
 				gv.setAdapter(adapter);
 			} else {
 				Toast msg = Toast.makeText(PostListActivity.this,
-						R.string.error_post_load_message,
-						Toast.LENGTH_LONG);
+						R.string.error_post_load_message, Toast.LENGTH_LONG);
 				msg.show();
 			}
 		}
