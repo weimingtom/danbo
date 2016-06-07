@@ -29,7 +29,6 @@ import android.widget.Toast;
  */
 public class PostListActivity extends Activity {
 
-	private int _currentPage = 1;
 	private PostRequest _request;
 
 	private class GetPostListTask extends
@@ -125,16 +124,26 @@ public class PostListActivity extends Activity {
 	}
 
 	@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		if (_request.getPage() == 1) {
+			menu.findItem(R.id.previous_page).setEnabled(false);
+		} else {
+			menu.findItem(R.id.previous_page).setEnabled(true);
+		}
+		return true;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-		// case R.id.previous_page:
-		// if (_currentPage > 1) {
-		// _request.previousPage();
-		// GetPostListTask t = new GetPostListTask();
-		// t.execute(_request);
-		// }
-		// return true;
+		case R.id.previous_page:
+			if (this._request.getPage() > 1) {
+				_request.previousPage();
+				GetPostListTask t = new GetPostListTask();
+				t.execute(_request);
+			}
+			return true;
 		case R.id.next_page:
 			_request.nextPage();
 			GetPostListTask t = new GetPostListTask();

@@ -34,11 +34,12 @@ public final class R {
         public static final int TagListView=0x7f080007;
         public static final int discard=0x7f080002;
         public static final int image=0x7f080000;
-        public static final int next_page=0x7f080009;
+        public static final int next_page=0x7f08000a;
         public static final int preferences_menu_item=0x7f080008;
+        public static final int previous_page=0x7f080009;
         public static final int save=0x7f080001;
-        public static final int save_image=0x7f08000b;
-        public static final int set_as_wallpaper=0x7f08000a;
+        public static final int save_image=0x7f08000c;
+        public static final int set_as_wallpaper=0x7f08000b;
     }
     public static final class layout {
         public static final int cropimage=0x7f030000;
@@ -66,6 +67,7 @@ public final class R {
         public static final int main_menu_search=0x7f060005;
         public static final int main_menu_tags=0x7f060004;
         public static final int postlist_menu_nextpage=0x7f060013;
+        public static final int postlist_menu_previouspage=0x7f06001a;
         public static final int preferences_host=0x7f060016;
         public static final int preferences_post_per_page=0x7f060017;
         public static final int preferences_rating=0x7f060018;
