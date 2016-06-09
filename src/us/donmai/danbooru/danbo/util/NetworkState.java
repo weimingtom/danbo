@@ -8,7 +8,6 @@ import android.net.NetworkInfo;
  * Gives information about the network state of the phone
  */
 public class NetworkState {
-
 	private ConnectivityManager cm;
 
 	/**
@@ -34,7 +33,6 @@ public class NetworkState {
 				continue;
 			}
 		}
-
 		return networkAvailable;
 	}
 }

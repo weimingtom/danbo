@@ -6,7 +6,6 @@ import java.io.Serializable;
  * An image posted on the danbooru-based site
  */
 public class Post implements Serializable {
-
 	private static final long serialVersionUID = 1793362629392152009L;
 
 	private int _id;

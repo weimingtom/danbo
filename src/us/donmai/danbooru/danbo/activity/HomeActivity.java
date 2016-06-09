@@ -1,5 +1,7 @@
 package us.donmai.danbooru.danbo.activity;
 
+import com.iteye.weimingtom.danbo.activity.SwipeActivity;
+
 import us.donmai.danbooru.danbo.R;
 import us.donmai.danbooru.danbo.SharedPreferencesInstance;
 import us.donmai.danbooru.danbo.util.NetworkState;
@@ -28,7 +30,6 @@ public class HomeActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 
 		if (checkPhoneStatus()) {
@@ -56,9 +57,12 @@ public class HomeActivity extends Activity {
 			setContentView(R.layout.home);
 
 			Resources res = getResources();
-			String[] menuItems = { res.getString(R.string.main_menu_posts),
-					res.getString(R.string.main_menu_tags),
-					res.getString(R.string.main_menu_search) };
+			String[] menuItems = { 
+				res.getString(R.string.main_menu_posts),
+				res.getString(R.string.main_menu_tags),
+				res.getString(R.string.main_menu_search),
+				res.getString(R.string.main_menu_posts_new),
+			};
 			ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
 			menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, android.R.id.text1, menuItems));
@@ -72,14 +76,22 @@ public class HomeActivity extends Activity {
 								PostListActivity.class);
 						HomeActivity.this.startActivity(postsIntent);
 						break;
+					
 					case 1:
 						Intent tagsIntent = new Intent(HomeActivity.this,
 								TagListActivity.class);
 						HomeActivity.this.startActivity(tagsIntent);
 						break;
+					
 					case 2:
 						onSearchRequested();
 						break;
+						
+					case 3:
+						startActivity(new Intent(HomeActivity.this,
+								SwipeActivity.class));
+						break;
+						
 					default:
 						break;
 					}
@@ -161,5 +173,4 @@ public class HomeActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
 }

@@ -6,10 +6,8 @@ import java.io.Serializable;
  * Constants specifying the "safety" of a post
  */
 public class Rating implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7308857740495590656L;
+	
 	/**
 	 * Safe for everyone
 	 */

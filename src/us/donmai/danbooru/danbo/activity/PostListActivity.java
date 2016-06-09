@@ -125,16 +125,6 @@ public class PostListActivity extends Activity {
 	}
 
 	@Override
-	public boolean onMenuOpened(int featureId, Menu menu) {
-		if (_request.getPage() == 1) {
-			menu.findItem(R.id.previous_page).setEnabled(false);
-		} else {
-			menu.findItem(R.id.previous_page).setEnabled(true);
-		}
-		return true;
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
@@ -143,6 +133,8 @@ public class PostListActivity extends Activity {
 				_request.previousPage();
 				GetPostListTask t = new GetPostListTask();
 				t.execute(_request);
+			} else {
+				Toast.makeText(this, R.string.no_previous_page, Toast.LENGTH_SHORT).show();
 			}
 			return true;
 		case R.id.next_page:

@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Tags are metadata associated with a post : anime, character ...
  */
 public class Tag implements Serializable {
-	
 	private static final long serialVersionUID = 8965414316154455353L;
+	
 	private String _name;
 	private int _type;
 	

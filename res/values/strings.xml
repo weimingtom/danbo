@@ -27,4 +27,7 @@
     <string name="preferences_rating">Rating</string>
     <string name="search_hint">Search for tags</string>
     <string name="postlist_menu_previouspage">Previous page</string>
+    
+    <string name="main_menu_posts_new">Posts (ViewPager)</string>
+    <string name="no_previous_page">No previous page</string>
 </resources>

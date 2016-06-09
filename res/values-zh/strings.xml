@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Danbo</string>
+    <string name="welcome_message">Welcome to Danbo!\nDanbo is downloading a lot of images off the internet and is using a lot of bandwidth. Please use this application on WiFi or you could get to your data cap very quickly!</string>
+    <string name="accept_welcome_message">I understand</string>
+    <string name="main_menu_posts">Posts</string>
+    <string name="main_menu_tags">Tags</string>
+    <string name="main_menu_search">Search</string>
+    <string name="error_no_connection_available">You need internet connectivity to use Danbo.</string>
+    <string name="button_exit">Exit</string>
+    <string name="error_sd_not_available">SD Card is not available for writing.</string>
+    <string name="error_post_load_message">An error occured during the loading, try again.</string>
+    <string name="singlepost_loading_title">Loading image</string>
+    <string name="singlepost_loading_message">Please wait while the post image is downloaded ...</string>
+    <string name="singlepost_saving_image_title">Saving Image</string>
+    <string name="singlepost_saving_image_message">Saving image, please wait ...</string>
+    <string name="singlepost_setting_wallpaper">Setting wallpaper, please wait ...</string>
+    <string name="singlepost_wallpaper_is_set">Your new wallpaper is set.</string>
+    <string name="generic_loading">Loading, please wait ...</string>
+    <string name="searching">Searching ...</string>
+    <string name="home_menu_preferences">Preferences</string>
+    <string name="postlist_menu_nextpage">Next page</string>
+    <string name="singlepost_menu_wallpaper">Set as wallpaper</string>
+    <string name="singlepost_menu_save_image">Save on SD Card</string>
+    <string name="preferences_host">Host</string>
+    <string name="preferences_post_per_page">Posts per page</string>
+    <string name="preferences_rating">Rating</string>
+    <string name="search_hint">Search for tags</string>
+    <string name="postlist_menu_previouspage">Previous page</string>    
+</resources>
