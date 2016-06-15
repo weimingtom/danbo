@@ -4,12 +4,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import us.donmai.danbooru.danbo.PostGridAdapter;
-import us.donmai.danbooru.danbo.PostRequest;
 import us.donmai.danbooru.danbo.R;
+import us.donmai.danbooru.danbo.adapter.PostGridAdapter;
 import us.donmai.danbooru.danbo.model.Post;
 import us.donmai.danbooru.danbo.model.PostBitmap;
 import us.donmai.danbooru.danbo.model.Tag;
+import us.donmai.danbooru.danbo.rest.PostRequest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
@@ -108,11 +108,10 @@ public class PostListActivity extends Activity {
 			Tag t = (Tag) tagObject;
 			ArrayList<Tag> tags = new ArrayList<Tag>();
 			tags.add(t);
-			_request = new PostRequest(tags);
+			_request = new PostRequest(this, tags);
 		} else {
-			_request = new PostRequest();
+			_request = new PostRequest(this);
 		}
-
 		GetPostListTask task = new GetPostListTask();
 		task.execute(_request);
 	}

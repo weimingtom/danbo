@@ -12,17 +12,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import us.donmai.danbooru.danbo.R;
-import us.donmai.danbooru.danbo.SharedPreferencesInstance;
-import us.donmai.danbooru.danbo.TagListAdapter;
+import us.donmai.danbooru.danbo.adapter.TagListAdapter;
 import us.donmai.danbooru.danbo.model.Tag;
 import us.donmai.danbooru.danbo.util.IOHelpers;
+import us.donmai.danbooru.danbo.util.PrefUtils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,11 +34,14 @@ import android.widget.Toast;
  *
  */
 public class TagSearchActivity extends Activity {
-
 	private class SearchTask extends AsyncTask<String, Integer, List<Tag>> {
-
-		ProgressDialog _progress;
-
+		private ProgressDialog _progress;
+		private Context _context;
+		
+		public SearchTask(Context context) {
+			this._context = context;
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			Resources res = getResources();
@@ -47,17 +53,13 @@ public class TagSearchActivity extends Activity {
 
 		@Override
 		protected List<Tag> doInBackground(String... params) {
-
 			ArrayList<Tag> tags = new ArrayList<Tag>();
 			try {
-				String host = SharedPreferencesInstance.getInstance()
-						.getString("host", "https://danbooru.donmai.us");
-				URL tagsUrl = new URL(host
-						+ "/tag/index.json?name=" + params[0] + "*");
+				PrefUtils pref = new PrefUtils(_context);
+				String host = pref.getHost();
+				URL tagsUrl = new URL(host + "/tag/index.json?name=" + params[0] + "*");
 				InputStream responseStream = tagsUrl.openStream();
-				String jsonString = IOHelpers
-						.convertStreamToString(responseStream);
-
+				String jsonString = IOHelpers.convertStreamToString(responseStream);
 				JSONArray jsonArray = new JSONArray(jsonString);
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject obj = jsonArray.getJSONObject(i);
@@ -96,7 +98,7 @@ public class TagSearchActivity extends Activity {
 		Intent intent = getIntent();
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
-			SearchTask task = new SearchTask();
+			SearchTask task = new SearchTask(this);
 			task.execute(query);
 		}
 	}

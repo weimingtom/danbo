@@ -4,7 +4,7 @@
     android:title="Preferences" >
 
     <ListPreference
-        android:defaultValue="danbooru.donmai.us"
+        android:defaultValue="https://yande.re"
         android:entries="@array/host"
         android:entryValues="@array/host"
         android:key="host"

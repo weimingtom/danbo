@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_menu">
+        <item>Posts</item>
+        <item>Tags</item>
+        <item>Search</item>
+        <item>Posts (ViewPager)</item>
+        <item>Preferences</item>
+    </string-array>    
+</resources>

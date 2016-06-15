@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_menu">
+        <item>图片</item>
+        <item>标签</item>
+        <item>搜索</item>
+        <item>图片(ViewPager)</item>
+        <item>设置</item>
+    </string-array>       
+</resources>

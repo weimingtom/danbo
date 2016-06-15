@@ -1,26 +1,29 @@
 package us.donmai.danbooru.danbo.activity;
 
-import com.iteye.weimingtom.danbo.activity.SwipeActivity;
-
+import us.donmai.danbooru.danbo.Constant;
 import us.donmai.danbooru.danbo.R;
-import us.donmai.danbooru.danbo.SharedPreferencesInstance;
 import us.donmai.danbooru.danbo.util.NetworkState;
+import us.donmai.danbooru.danbo.util.PrefUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.iteye.weimingtom.danbo.activity.SwipeActivity;
 
 /**
  * The activity launched when the application starts up
@@ -31,76 +34,67 @@ public class HomeActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.home);
 
-		if (checkPhoneStatus()) {
-			// Everything is good, we can launch Danbo
-
-			SharedPreferencesInstance.initialize(this);
-
-			boolean firstLaunch = SharedPreferencesInstance.getInstance()
-					.getBoolean("first-launch", true);
-			if (firstLaunch) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage(R.string.welcome_message);
-				builder.setNeutralButton(R.string.accept_welcome_message,
-						new OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						});
-				AlertDialog firstLaunchAlert = builder.create();
-				firstLaunchAlert.show();
-				SharedPreferencesInstance.getInstance().edit()
-						.putBoolean("first-launch", false).commit();
-			}
-
-			setContentView(R.layout.home);
-
-			Resources res = getResources();
-			String[] menuItems = { 
-				res.getString(R.string.main_menu_posts),
-				res.getString(R.string.main_menu_tags),
-				res.getString(R.string.main_menu_search),
-				res.getString(R.string.main_menu_posts_new),
-			};
-			ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
-			menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, android.R.id.text1, menuItems));
-			menuItemsListView.setOnItemClickListener(new OnItemClickListener() {
-
-				public void onItemClick(AdapterView<?> arg0, View v,
-						int position, long id) {
-					switch (position) {
-					case 0:
-						Intent postsIntent = new Intent(HomeActivity.this,
-								PostListActivity.class);
-						HomeActivity.this.startActivity(postsIntent);
-						break;
+		Resources res = getResources();
+		String[] menuItems = res.getStringArray(R.array.main_menu);
+		ListView menuItemsListView = (ListView) findViewById(R.id.MenuItems);
+		menuItemsListView.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1, menuItems));
+		
+		menuItemsListView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View v,
+					int position, long id) {
+				switch (position) {
+				case 0:
+					startActivity(new Intent(HomeActivity.this,
+							PostListActivity.class));
+					break;
+				
+				case 1:
+					startActivity(new Intent(HomeActivity.this,
+						TagListActivity.class));
+					break;
+				
+				case 2:
+					onSearchRequested();
+					break;
 					
-					case 1:
-						Intent tagsIntent = new Intent(HomeActivity.this,
-								TagListActivity.class);
-						HomeActivity.this.startActivity(tagsIntent);
-						break;
+				case 3:
+					startActivity(new Intent(HomeActivity.this,
+						SwipeActivity.class));
+					break;
 					
-					case 2:
-						onSearchRequested();
-						break;
-						
-					case 3:
-						startActivity(new Intent(HomeActivity.this,
-								SwipeActivity.class));
-						break;
-						
-					default:
-						break;
-					}
-
+				case 4:
+					startActivity(new Intent(HomeActivity.this, 
+						PreferencesActivity.class));
+					break;
+					
+				default:
+					break;
 				}
-			});
-		}
+			}
+		});
 	}
 
+	private void checkFirstLaunch() {
+		PrefUtils pref = new PrefUtils(this);
+		boolean firstLaunch = pref.getFirstLaunch();
+		if (firstLaunch) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.welcome_message);
+			builder.setNeutralButton(R.string.accept_welcome_message,
+					new OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int which) {
+						}
+					});
+			AlertDialog firstLaunchAlert = builder.create();
+			firstLaunchAlert.show();
+			pref.setFirstLaunch(false);
+		}
+	}
+	
 	private boolean checkPhoneStatus() {
 		/* Is a connection available ? */
 		NetworkState ns = new NetworkState(this);

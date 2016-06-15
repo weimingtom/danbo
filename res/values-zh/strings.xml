@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Danbo</string>
-    <string name="welcome_message">Welcome to Danbo!\nDanbo is downloading a lot of images off the internet and is using a lot of bandwidth. Please use this application on WiFi or you could get to your data cap very quickly!</string>
-    <string name="accept_welcome_message">I understand</string>
-    <string name="main_menu_posts">Posts</string>
-    <string name="main_menu_tags">Tags</string>
-    <string name="main_menu_search">Search</string>
-    <string name="error_no_connection_available">You need internet connectivity to use Danbo.</string>
-    <string name="button_exit">Exit</string>
-    <string name="error_sd_not_available">SD Card is not available for writing.</string>
-    <string name="error_post_load_message">An error occured during the loading, try again.</string>
-    <string name="singlepost_loading_title">Loading image</string>
-    <string name="singlepost_loading_message">Please wait while the post image is downloaded ...</string>
-    <string name="singlepost_saving_image_title">Saving Image</string>
-    <string name="singlepost_saving_image_message">Saving image, please wait ...</string>
-    <string name="singlepost_setting_wallpaper">Setting wallpaper, please wait ...</string>
-    <string name="singlepost_wallpaper_is_set">Your new wallpaper is set.</string>
-    <string name="generic_loading">Loading, please wait ...</string>
-    <string name="searching">Searching ...</string>
-    <string name="home_menu_preferences">Preferences</string>
-    <string name="postlist_menu_nextpage">Next page</string>
-    <string name="singlepost_menu_wallpaper">Set as wallpaper</string>
-    <string name="singlepost_menu_save_image">Save on SD Card</string>
-    <string name="preferences_host">Host</string>
-    <string name="preferences_post_per_page">Posts per page</string>
-    <string name="preferences_rating">Rating</string>
-    <string name="search_hint">Search for tags</string>
-    <string name="postlist_menu_previouspage">Previous page</string>    
+    <string name="welcome_message">欢迎使用Danbo!\nDanbo正在从互联网中下载很多图片且使用大量网络带宽。请在WiFi下使用这个程序，否则会很快用完数据流量！</string>
+    <string name="accept_welcome_message">我知道了</string>
+    <string name="error_no_connection_available">你需要打开网络连接以使用Danbo.</string>
+    <string name="button_exit">退出</string>
+    <string name="error_sd_not_available">SD卡无法写入</string>
+    <string name="error_post_load_message">加载期间发生错误，请重试。</string>
+    <string name="singlepost_loading_title">正在加载图片</string>
+    <string name="singlepost_loading_message">图片正在下载中请稍候...</string>
+    <string name="singlepost_saving_image_title">正字保存图片</string>
+    <string name="singlepost_saving_image_message">正在保存图片，请稍候...</string>
+    <string name="singlepost_setting_wallpaper">正在设置壁纸，请稍候...</string>
+    <string name="singlepost_wallpaper_is_set">你的壁纸已经设置好了。</string>
+    <string name="generic_loading">加载中，请稍候...</string>
+    <string name="searching">正在搜索...</string>
+    <string name="home_menu_preferences">设置</string>
+    <string name="postlist_menu_nextpage">下一页</string>
+    <string name="singlepost_menu_wallpaper">设置为壁纸</string>
+    <string name="singlepost_menu_save_image">保存到SD卡</string>
+    <string name="preferences_host">主机</string>
+    <string name="preferences_post_per_page">每页图片数</string>
+    <string name="preferences_rating">评级</string>
+    <string name="search_hint">搜索标签</string>
+    <string name="postlist_menu_previouspage">上一页</string>  
+    
+    <string name="no_previous_page">已经是第一页</string>
 </resources>

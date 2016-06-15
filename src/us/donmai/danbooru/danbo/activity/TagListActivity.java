@@ -7,15 +7,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import us.donmai.danbooru.danbo.R;
-import us.donmai.danbooru.danbo.SharedPreferencesInstance;
-import us.donmai.danbooru.danbo.TagListAdapter;
+import us.donmai.danbooru.danbo.adapter.TagListAdapter;
 import us.donmai.danbooru.danbo.model.Tag;
 import us.donmai.danbooru.danbo.util.IOHelpers;
+import us.donmai.danbooru.danbo.util.PrefUtils;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.ListView;
 
 /**
@@ -30,15 +33,19 @@ public class TagListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tags);
 
-		GetTagListTask task = new GetTagListTask();
+		GetTagListTask task = new GetTagListTask(this);
 		task.execute();
 
 	}
 
 	private class GetTagListTask extends AsyncTask<Void, Void, Void> {
-
 		private ProgressDialog _progress;
-
+		private Context _context;
+		
+		public GetTagListTask(Context context) {
+			this._context = context;
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			Resources res = getResources();
@@ -59,10 +66,9 @@ public class TagListActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				String host = SharedPreferencesInstance.getInstance()
-						.getString("host", "https://danbooru.donmai.us");
-				URL tagListUrl = new URL(host
-						+ "/tag/index.json?order=count&limit=100");
+				PrefUtils pref = new PrefUtils(_context);
+				String host = pref.getHost();
+				URL tagListUrl = new URL(host + "/tag/index.json?order=count&limit=100");
 				String jsonString = IOHelpers.convertStreamToString(tagListUrl
 						.openStream());
 				JSONArray jsonTags = new JSONArray(jsonString);

@@ -1,4 +1,4 @@
-package us.donmai.danbooru.danbo;
+package us.donmai.danbooru.danbo.adapter;
 
 import java.util.List;
 
