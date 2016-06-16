@@ -16,7 +16,7 @@ import android.widget.LinearLayout.LayoutParams;
  *
  */
 public class ImageFragment extends Fragment {
-	private static final String KEY_PAGE = "Image.page";
+	private static final String KEY_PAGE = "ImageFragment.page";
 
     public int page;
     private ImageView image;

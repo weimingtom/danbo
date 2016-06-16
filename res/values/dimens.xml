@@ -2,4 +2,10 @@
 <resources>
 	<dimen name="gridview_imageview_height">100dp</dimen>
 	<dimen name="gridview_imageview_padding">0dp</dimen>
+	
+    <dimen name="commonMargin">16.0dip</dimen>
+    <item type="dimen" name="titleBarButtonHeight">@dimen/titleBarHeight</item>
+    <item type="dimen" name="titleBarButtonWidth">@dimen/titleBarHeight</item>
+    <dimen name="titleBarHeight">48.0dip</dimen>
+
 </resources>

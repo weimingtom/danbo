@@ -1,6 +1,5 @@
 package us.donmai.danbooru.danbo.activity;
 
-import us.donmai.danbooru.danbo.Constant;
 import us.donmai.danbooru.danbo.R;
 import us.donmai.danbooru.danbo.util.NetworkState;
 import us.donmai.danbooru.danbo.util.PrefUtils;
@@ -9,11 +8,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.iteye.weimingtom.danbo.activity.SwipeActivity;
+import com.iteye.weimingtom.danbo.activity.SwipeListActivity;
 
 /**
  * The activity launched when the application starts up
@@ -64,8 +62,13 @@ public class HomeActivity extends Activity {
 					startActivity(new Intent(HomeActivity.this,
 						SwipeActivity.class));
 					break;
-					
+
 				case 4:
+					startActivity(new Intent(HomeActivity.this,
+						SwipeListActivity.class));
+					break;
+					
+				case 5:
 					startActivity(new Intent(HomeActivity.this, 
 						PreferencesActivity.class));
 					break;

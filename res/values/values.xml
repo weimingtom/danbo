@@ -4,7 +4,8 @@
         <item>Posts</item>
         <item>Tags</item>
         <item>Search</item>
-        <item>Posts (ViewPager)</item>
+        <item>Swiping ViewPager</item>
+        <item>Swiping List ViewPager</item>
         <item>Preferences</item>
     </string-array>    
 </resources>

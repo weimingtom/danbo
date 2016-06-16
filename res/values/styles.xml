@@ -17,4 +17,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    
+    
+    <style name="TitleImageButtonStyle" parent="@android:style/Widget.ImageButton">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:paddingLeft">@dimen/commonMargin</item>
+        <item name="android:paddingRight">@dimen/commonMargin</item>
+    </style>
+        
 </resources>

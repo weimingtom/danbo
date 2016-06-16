@@ -5,6 +5,7 @@
         <item>标签</item>
         <item>搜索</item>
         <item>图片(ViewPager)</item>
+        <item>下拉列表(ViewPager)</item>
         <item>设置</item>
     </string-array>       
 </resources>

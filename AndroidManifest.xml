@@ -48,7 +48,8 @@
             android:name="android.app.default_searchable"
             android:value="us.donmai.danbooru.danbo.activity.TagSearchActivity" />
         <activity android:name="us.donmai.danbooru.danbo.cropimage.CropImage" />
-        <activity android:name="com.iteye.weimingtom.danbo.activity.SwipeActivity"></activity>
+        <activity android:name="com.iteye.weimingtom.danbo.activity.SwipeActivity"/>
+        <activity android:name="com.iteye.weimingtom.danbo.activity.SwipeListActivity"/>
     </application>
 
 </manifest>
