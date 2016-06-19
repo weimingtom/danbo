@@ -146,6 +146,10 @@ public class PostRequest {
 		return _limit;
 	}
 
+	public void setPage(int page) {
+		this._page = page;
+	}
+	
 	public int getPage() {
 		return _page;
 	}

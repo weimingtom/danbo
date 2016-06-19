@@ -21,4 +21,7 @@
     <!--  -->
     
     
+    <color name="black_alpha">#75000000</color>
+    <color name="black_alpha2">#23000000</color>
+    
 </resources>
